@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.hank.java.concurrent</groupId>
+    <artifactId>java-concurrent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>case_java7</module>
+        <module>case_java8</module>
+        <module>case_monitor</module>
+        <module>case_thirdpart</module>
+        <module>case_tomcat</module>
+        <module>jcstress_ordering</module>
+        <module>jmh_eliminate_locks</module>
+        <module>jmh_performance</module>
+    </modules>
+
+</project>
