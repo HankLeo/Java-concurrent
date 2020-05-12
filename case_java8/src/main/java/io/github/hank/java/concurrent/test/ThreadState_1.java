@@ -12,7 +12,7 @@ public class ThreadState_1 {
             @Override
             public void run() {
                 log.debug("running...");
-                FileReader.read(Constants.MP4_FULL_PATH);
+                FileReader.read(Constants.JPG_FULL_PATH);
             }
         };
 

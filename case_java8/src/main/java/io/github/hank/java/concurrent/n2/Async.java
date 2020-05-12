@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Async {
 
     public static void main(String[] args) {
-        new Thread(() -> FileReader.read(Constants.MP4_FULL_PATH)).start();
+        new Thread(() -> FileReader.read(Constants.JPG_FULL_PATH), "t1").start();
         log.debug("do other things ...");
     }
 

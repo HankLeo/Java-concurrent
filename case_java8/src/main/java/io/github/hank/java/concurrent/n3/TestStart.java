@@ -11,7 +11,7 @@ public class TestStart {
             @Override
             public void run() {
                 log.debug(Thread.currentThread().getName());
-                FileReader.read(Constants.MP4_FULL_PATH);
+                FileReader.read(Constants.JPG_FULL_PATH);
             }
         };
 
