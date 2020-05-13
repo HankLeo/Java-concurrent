@@ -1,6 +1,6 @@
 package io.github.hank.java.concurrent.n3;
 
-public class TestCpu {
+public class TestCpuSleep {
     public static void main(String[] args) {
         new Thread(() -> {
             while(true) {

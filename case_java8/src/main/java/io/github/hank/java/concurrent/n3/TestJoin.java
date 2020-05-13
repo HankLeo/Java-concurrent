@@ -11,6 +11,11 @@ public class TestJoin {
     static int r2 = 0;
 
     public static void main(String[] args) throws InterruptedException {
+        log.debug("Test 1:");
+        test1();
+        log.debug("Test 2:");
+        test2();
+        log.debug("Test 3:");
         test3();
     }
 
@@ -27,7 +32,7 @@ public class TestJoin {
         log.debug("join begin");
         t1.join(3000);
         long end = System.currentTimeMillis();
-        log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+        log.debug("r1: {} r2: {} cost: {}\n", r1, r2, end - start);
     }
 
     private static void test2() throws InterruptedException {
@@ -48,7 +53,7 @@ public class TestJoin {
         t1.join();
         log.debug("t1 join end");
         long end = System.currentTimeMillis();
-        log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+        log.debug("r1: {} r2: {} cost: {}\n", r1, r2, end - start);
     }
 
     private static void test1() throws InterruptedException {
@@ -62,6 +67,6 @@ public class TestJoin {
         t1.start();
         t1.join();
         log.debug("结果为:{}", r);
-        log.debug("结束");
+        log.debug("结束\n");
     }
 }
