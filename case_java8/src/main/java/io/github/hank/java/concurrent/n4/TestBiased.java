@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.Vector;
 import java.util.concurrent.locks.LockSupport;
 
+// jol打印出的前8位数字表示对象的锁状态
+// 001 normal; 101 biased; 00 lightweight locked; 10 heavy weight locked
+
 // -XX:-UseCompressedOops -XX:-UseCompressedClassPointers -XX:BiasedLockingStartupDelay=0 -XX:+PrintFlagsFinal
 //-XX:-UseBiasedLocking tid=0x000000001f173000  -XX:BiasedLockingStartupDelay=0 -XX:+TraceBiasedLocking
 @Slf4j(topic = "c.TestBiased")
@@ -17,7 +20,7 @@ public class TestBiased {
     [t2] - 29	00000000 00000000 00000000 00000000 00011111 01000101 11000001 00000101
      */
     public static void main(String[] args) throws IOException, InterruptedException {
-        test1();
+        test3();
 
     }
 
@@ -33,6 +36,8 @@ public class TestBiased {
 
     static Thread t1, t2, t3;
 
+    // 测试批量撤销偏向锁
+    // 当撤销操作超过40次时，JVM撤销所有剩余偏向锁
     private static void test4() throws InterruptedException {
         Vector<Dog> list = new Vector<>();
 
@@ -82,6 +87,8 @@ public class TestBiased {
         log.debug(ClassLayout.parseInstance(new Dog()).toPrintableSimple(true));
     }
 
+    // 测试JVM批量重偏向
+    // 当发生20次撤销偏向锁行为后，JVM将调整剩余锁对象的默认偏向线程
     private static void test3() throws InterruptedException {
 
         Vector<Dog> list = new Vector<>();
@@ -122,6 +129,7 @@ public class TestBiased {
     }
 
     // 测试撤销偏向锁
+    // 当锁对象被其他非偏向线程调用时，锁对象的偏向状态被撤销(101 -> 00 -> 001)
     private static void test2() throws InterruptedException {
 
         Dog d = new Dog();
@@ -158,6 +166,8 @@ public class TestBiased {
     // 测试偏向锁
     private static void test1() {
         Dog d = new Dog();
+        // 偏向锁状态的初始化会有延迟，故一开始为001
+        // 当加上JVM参数"-XX:BiasedLockingStartupDelay=0" 则为101
         log.debug(ClassLayout.parseInstance(d).toPrintableSimple(true));
 
         try {
