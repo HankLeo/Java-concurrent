@@ -20,7 +20,7 @@ public class TestBiased {
     [t2] - 29	00000000 00000000 00000000 00000000 00011111 01000101 11000001 00000101
      */
     public static void main(String[] args) throws IOException, InterruptedException {
-        test3();
+        test5();
 
     }
 
@@ -32,6 +32,9 @@ public class TestBiased {
             log.debug(ClassLayout.parseInstance(d).toPrintableSimple(true));
             Thread.sleep(1000);
         }
+        Dog d = new Dog();
+        d.hashCode();
+        log.debug(ClassLayout.parseInstance(d).toPrintableSimple(true));
     }
 
     static Thread t1, t2, t3;
@@ -84,6 +87,7 @@ public class TestBiased {
         t3.start();
 
         t3.join();
+        // t3执行后，已发生过多偏向锁撤销，JVM将不再给新的锁对象赋予偏向状态
         log.debug(ClassLayout.parseInstance(new Dog()).toPrintableSimple(true));
     }
 
@@ -97,7 +101,11 @@ public class TestBiased {
                 Dog d = new Dog();
                 list.add(d);
                 synchronized (d) {
-                    log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(true));
+                    if (i == 29) {
+                        log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(false));
+                    } else {
+                        log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(true));
+                    }
                 }
             }
             synchronized (list) {
@@ -120,7 +128,11 @@ public class TestBiased {
                 Dog d = list.get(i);
                 log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(true));
                 synchronized (d) {
-                    log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(true));
+                    if (i == 29) {
+                        log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(false));
+                    } else {
+                        log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(true));
+                    }
                 }
                 log.debug(i + "\t" + ClassLayout.parseInstance(d).toPrintableSimple(true));
             }
@@ -135,7 +147,7 @@ public class TestBiased {
         Dog d = new Dog();
         Thread t1 = new Thread(() -> {
             synchronized (d) {
-                log.debug(ClassLayout.parseInstance(d).toPrintableSimple(true));
+                log.debug(ClassLayout.parseInstance(d).toPrintableSimple(false));
             }
             synchronized (TestBiased.class) {
                 TestBiased.class.notify();
