@@ -1,13 +1,8 @@
 package io.github.hank.java.concurrent;
 
-import java.util.SortedSet;
-
-import org.openjdk.jol.info.ClassData;
-import org.openjdk.jol.info.FieldLayout;
-
 public class ClassLayout {
 
-    private org.openjdk.jol.info.ClassLayout classLayout;
+    private final org.openjdk.jol.info.ClassLayout classLayout;
 
     public ClassLayout(org.openjdk.jol.info.ClassLayout classLayout) {
         this.classLayout = classLayout;
