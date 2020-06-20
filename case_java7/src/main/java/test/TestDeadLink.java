@@ -52,11 +52,8 @@ public class TestDeadLink {
         }.start();
     }
 
-    final static int hash(Object k) {
+    static int hash(Object k) {
         int h = 0;
-        if (0 != h && k instanceof String) {
-            return sun.misc.Hashing.stringHash32((String) k);
-        }
         h ^= k.hashCode();
         h ^= (h >>> 20) ^ (h >>> 12);
         return h ^ (h >>> 7) ^ (h >>> 4);
