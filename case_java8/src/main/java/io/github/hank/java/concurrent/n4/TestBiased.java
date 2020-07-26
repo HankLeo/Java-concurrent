@@ -3,7 +3,6 @@ package io.github.hank.java.concurrent.n4;
 import io.github.hank.java.concurrent.ClassLayout;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.util.Vector;
 import java.util.concurrent.locks.LockSupport;
 
@@ -19,7 +18,7 @@ public class TestBiased {
     [t1] - 29	00000000 00000000 00000000 00000000 00011111 01000101 01101000 00000101
     [t2] - 29	00000000 00000000 00000000 00000000 00011111 01000101 11000001 00000101
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         test5();
 
     }
@@ -93,7 +92,7 @@ public class TestBiased {
 
     // 测试JVM批量重偏向
     // 当发生20次撤销偏向锁行为后，JVM将调整剩余锁对象的默认偏向线程
-    private static void test3() throws InterruptedException {
+    private static void test3() {
 
         Vector<Dog> list = new Vector<>();
         Thread t1 = new Thread(() -> {
