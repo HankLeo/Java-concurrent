@@ -27,12 +27,14 @@ public class Test {
             uriComponentsBuilder.queryParams(inputs);
             userInput = uriComponentsBuilder.build().encode().toUriString().substring(2);
         }
-        System.out.println(userInput);
-        String encodedString = URLEncoder.encode(userInput, StandardCharsets.UTF_8.toString());
-        System.out.println(encodedString);
+        System.out.println("input param: " + userInput);
+
+        //String encodedString = URLEncoder.encode(userInput, StandardCharsets.UTF_8.toString());
+        //System.out.println(encodedString);
 
         URIBuilder uriBuilder = new URIBuilder();
-        uriBuilder.addParameter("userInput", encodedString);
+        uriBuilder.addParameter("userInput", userInput);
+        uriBuilder.addParameter("name", "abc");
         System.out.println(uriBuilder.build());
 
     }
