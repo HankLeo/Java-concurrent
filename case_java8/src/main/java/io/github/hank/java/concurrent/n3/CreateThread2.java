@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CreateThread2 {
 
     public static void main(String[] args) {
+        // 当不需要拿到线程任务返回值时，这是最佳实践
         Runnable r = () -> log.debug("running...");
         Thread t3 = new Thread(r, "t3");
         t3.start();
